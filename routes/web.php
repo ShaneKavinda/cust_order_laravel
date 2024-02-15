@@ -20,7 +20,7 @@ use App\Models\FreeIssue;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/customers', [CustomerController::class, 'index'])
     ->name('customers.index');

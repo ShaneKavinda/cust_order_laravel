@@ -121,9 +121,15 @@
 
         // Event listener for adding product rows
         document.getElementById('add_product_row').addEventListener('click', function() {
-            var newRow = document.querySelector('.product_row').cloneNode(true);
-            newRow.querySelectorAll('input').forEach(function(input) {
-                input.value = '';
+            var rows = document.querySelectorAll('.product_row');
+            var lastRow = rows[rows.length - 1]; // Get the last row
+            var newRow = lastRow.cloneNode(true); // Clone the last row
+            var index = parseInt(newRow.querySelector('.product_select').name.match(/\[(\d+)\]/)[1]) + 1; // Get the index from the last row and increment it
+            var inputs = newRow.querySelectorAll('input, select');
+            inputs.forEach(function(input) {
+                // Update the name attribute with the new index
+                input.name = input.name.replace(/\[(\d+)\]/, '[' + index + ']');
+                input.value = ''; // Clear the input value
             });
             document.getElementById('products_table').appendChild(newRow);
             updateDeleteButtons(); // Update delete buttons when adding a row

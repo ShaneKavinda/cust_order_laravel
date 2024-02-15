@@ -13,16 +13,17 @@ class Order extends Model
         'net_amount'
     ];
 
-    public function products(){
-        return $this->belongsToMany(Product::class, 'order_products', 'order_id', 'product_id');
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withPivot('quantity', 'free', 'amount')->withTimestamps();
     }
-    
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
      
-     public function orderProducts()
+     public function orderProduct()
      {
          return $this->hasMany(OrderProduct::class);
      }

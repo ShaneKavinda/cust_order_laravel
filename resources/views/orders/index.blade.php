@@ -8,7 +8,8 @@
                 {{ session('success') }}
             </div>
         @endif
-        <a href="/orders/create" class="button btn-primary">Create new Order</a>
+        <a href="{{route('orders.create')}}" class="button btn-primary">Create new Order</a>
+        <a href="{{ route('home') }}" class="btn btn-secondary">Home</a> <!-- Home button -->
         <table class="table">
             <thead>
                 <tr>

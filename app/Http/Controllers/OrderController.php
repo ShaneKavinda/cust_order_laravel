@@ -39,7 +39,6 @@ class OrderController extends Controller
             'products.*.quantity' => 'required|integer|min:1',
             'net_amount' => 'required|numeric|min:0',
         ]);
-            //dd($validatedData);
 
         // Create the order
         $order = new Order();
@@ -49,24 +48,25 @@ class OrderController extends Controller
         $order->order_time = now()->toTimeString(); // Set order_time to current time
         $order->save();
 
-            // Create order products
+        // Create order products
         foreach ($validatedData['products'] as $productData) {
             $product = Product::find($productData['product_id']);
-            $orderProduct = new OrderProduct();
-            $orderProduct->order_id = $order->id;
-            $orderProduct->product_id = $productData['product_id'];
-            $orderProduct->quantity = $productData['quantity'];
-            $orderProduct->amount = $product->price * $productData['quantity'];
-            $orderProduct->save();
+            $order->products()->attach($productData['product_id'], [
+                'amount' => $product->price * $productData['quantity'],
+                'free' => $productData['free'] ?? 0, // Assuming 'free' field is nullable
+                'quantity' => $productData['quantity'] + $productData['free'],
+            ]);
         }
 
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
-    
+
+
+
     public function show(Order $order)
     {
         // Load the associated order products with the order
-        $order->load('orderProducts');
+        $order->load('products');
 
         return view('orders.show', ['order' => $order]);
     }

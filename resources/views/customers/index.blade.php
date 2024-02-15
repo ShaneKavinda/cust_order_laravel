@@ -11,6 +11,7 @@
 @endif
 
 <a href="{{ route('customers.create') }}" class="btn btn-primary">Create a New Customer</a>
+<a href="{{ route('home') }}" class="btn btn-secondary">Home</a> <!-- Home button -->
 <table class="table">
     <thead>
         <tr>

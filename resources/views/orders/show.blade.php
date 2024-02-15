@@ -24,17 +24,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($order->orderProducts as $orderProduct)
+                                @foreach ($order->products as $product)
                                     <tr>
-                                        <td>{{ $orderProduct->product_name }}</td>
-                                        <td>{{ $orderProduct->quantity }}</td>
-                                        <td>{{ $orderProduct->price }}</td>
-                                        <td>{{ $orderProduct->amount }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->pivot->quantity }}</td>
+                                        <td>{{ $product->price }}</td>
+                                        <td>{{ $product->pivot->amount }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                    <a href="{{route('orders.index')}}" class="button btn-primary">Go Back</a>
                 </div>
             </div>
         </div>
