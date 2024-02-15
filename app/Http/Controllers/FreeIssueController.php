@@ -111,4 +111,12 @@ class FreeIssueController extends Controller
         return redirect()->route('free_issues.index')
             ->with('success', 'Free Issue deleted successfully');
     }
+
+    public function getFreeIssueByProduct($productId)
+    {
+        $freeIssue = FreeIssue::where('purchase_product', $productId)->first();
+        return response()->json(['free_quantity' => $freeIssue ? $freeIssue->free_quantity : 0]);
+    }
+    
+
 }

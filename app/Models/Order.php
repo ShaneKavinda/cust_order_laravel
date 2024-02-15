@@ -12,4 +12,18 @@ class Order extends Model
         'customer_id',
         'net_amount'
     ];
+
+    public function products(){
+        return $this->belongsToMany(Product::class, 'order_products', 'order_id', 'product_id');
+    }
+    
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+     
+     public function orderProducts()
+     {
+         return $this->hasMany(OrderProduct::class);
+     }
 }

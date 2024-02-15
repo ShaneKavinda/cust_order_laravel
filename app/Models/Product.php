@@ -18,4 +18,7 @@ class Product extends Model
     {
         return $this->hasMany(FreeIssue::class, 'purchase_product', 'id');
     }
+    public function orders(){
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id');
+    }
 }

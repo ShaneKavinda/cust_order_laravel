@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('customer_id')->constrained('customers');
-            $table->double('net_amount');
-            $table->date('order_date');
-            $table->time('order_time');
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->boolean('free')->default(false);
         });
-        
     }
 
     /**
@@ -27,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::table('orders', function (Blueprint $table) {
+            //
+        });
     }
 };
