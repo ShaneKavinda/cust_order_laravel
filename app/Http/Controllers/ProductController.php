@@ -113,4 +113,13 @@ class ProductController extends Controller
         return redirect()->route('products.index')
             ->with('success', 'Product Deleted Successfully');
     }
+
+    public function getProductPrice($productId)
+    {
+        // Fetch the product by its ID
+        $product = Product::findOrFail($productId);
+
+        // Return the price of the product
+        return response()->json(['price' => $product->price]);
+    }
 }

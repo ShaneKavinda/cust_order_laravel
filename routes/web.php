@@ -53,6 +53,9 @@ Route::delete('/products/{product}', [ProductController::class, 'destroy'])
     ->name('products.destroy');
 Route::get('/products/search', [ProductController::class, 'search'])
     ->name('products.search');
+Route::get('/get-product-price/{productId}', [ProductController::class, 'getProductPrice'])
+    ->name('get-product-price');
+
 
 Route::get('/free_issues', [FreeIssueController::class, 'index'])
     ->name('free_issues.index');

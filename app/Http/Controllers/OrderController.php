@@ -37,6 +37,7 @@ class OrderController extends Controller
             'products' => 'required|array',
             'products.*.product_id' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',
+            'products.*.free' => 'nullable|integer|min:0',
             'net_amount' => 'required|numeric|min:0',
         ]);
 
@@ -53,7 +54,7 @@ class OrderController extends Controller
             $product = Product::find($productData['product_id']);
             $order->products()->attach($productData['product_id'], [
                 'amount' => $product->price * $productData['quantity'],
-                'free' => $productData['free'] ?? 0, // Assuming 'free' field is nullable
+                'free' => $productData['free'] ?? 0, 
                 'quantity' => $productData['quantity'] + $productData['free'],
             ]);
         }

@@ -115,7 +115,7 @@ class FreeIssueController extends Controller
     public function getFreeIssueByProduct($productId)
     {
         $freeIssue = FreeIssue::where('purchase_product', $productId)->first();
-        return response()->json(['free_quantity' => $freeIssue ? $freeIssue->free_quantity : 0]);
+        return response()->json($freeIssue);
     }
     
 
