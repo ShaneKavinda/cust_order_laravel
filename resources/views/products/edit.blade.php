@@ -33,17 +33,17 @@
 
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="{{$product->name}}" required>
+        <input type="text" name="name" id="name" class="form-control" value="{{$product->name}}" required>
     </div>
 
     <div class="form-group">
         <label for="price">price</label>
-        <input type="text" name="price" id="price" class="form-control" placeholder="{{$product->price}}" required>
+        <input type="text" name="price" id="price" class="form-control" value="{{$product->price}}" required>
     </div>
 
     <div class="form-group">
         <label for="expiry_date">Expiry Date</label>
-        <input type="text" name="expiry_date" id="expiry_date" class="form-control" placeholder="{{$product->expiry_date}}" required>
+        <input type="text" name="expiry_date" id="expiry_date" class="form-control" value="{{$product->expiry_date}}" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
