@@ -32,8 +32,8 @@
                     <tr>
                         <td>{{ $freeIssue->name }}</td>
                         <td>{{ $freeIssue->type }}</td>
-                        <td>{{ $freeIssue->purchase_product }}</td>
-                        <td>{{ $freeIssue->free_product }}</td>
+                        <td>{{ $freeIssue->purchaseProduct->name }}</td>
+                        <td>{{ $freeIssue->freeProduct->name }}</td>
                         <td>{{ $freeIssue->purchase_quantity }}</td>
                         <td>{{ $freeIssue->free_quantity }}</td>
                         <td>{{ $freeIssue->lower_limit }}</td>

@@ -16,7 +16,7 @@ class Product extends Model
     ];
     public function freeIssues()
     {
-        return $this->hasMany(FreeIssue::class, 'purchase_product', 'id');
+        return $this->hasOne(FreeIssue::class, 'purchase_product', 'id');
     }
     public function orders()
     {

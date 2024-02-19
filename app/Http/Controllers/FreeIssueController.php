@@ -14,7 +14,7 @@ class FreeIssueController extends Controller
     public function index()
     {
         // Eager load the purchase_product and free_product relationships
-        $freeIssues = FreeIssue::with('purchase_product', 'free_product')->get();
+        $freeIssues = FreeIssue::with('purchaseProduct', 'freeProduct')->get();
         return view('free_issues.index', compact('freeIssues'));
     }
 
@@ -114,7 +114,7 @@ class FreeIssueController extends Controller
 
     public function getFreeIssueByProduct($productId)
     {
-        $freeIssue = FreeIssue::where('purchase_product', $productId)->first();
+        $freeIssue = FreeIssue::where('purchaseProduct', $productId)->first();
         return response()->json($freeIssue);
     }
     

@@ -18,13 +18,13 @@ class FreeIssue extends Model
         'lower_limit',
         'upper_limit'
     ];
-    public function purchase_product()
+    public function purchaseProduct()
     {
-        return $this->belongsTo(Product::class, 'purchase_product_id');
+        return $this->belongsTo(Product::class, 'purchase_product');
     }
 
-    public function free_product()
+    public function freeProduct()
     {
-        return $this->belongsTo(Product::class, 'free_product_id');
+        return $this->belongsTo(Product::class, 'free_product');
     }
 }
