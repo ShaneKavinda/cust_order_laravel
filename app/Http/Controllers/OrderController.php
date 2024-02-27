@@ -78,7 +78,7 @@ class OrderController extends Controller
     public function downloadPDF($orderID) {
         // load the relevant products in the order
         $order = Order::with('products') -> find($orderID);
-        $pdf = PDF::loadView('orders.show', compact('order'));
+        $pdf = PDF::loadView('orders.pdf', compact('order'));
         return $pdf->download('order_'.$orderID.'.pdf');
     }
 
@@ -98,7 +98,7 @@ class OrderController extends Controller
         foreach ($orderids as $orderid){
             $filename = 'order_'.$orderid.'.pdf';
             $order = Order::with('products')->find($orderid);
-            $pdf = PDF::loadView('orders.show', compact('order'));
+            $pdf = PDF::loadView('orders.pdf', compact('order'));
             $pdf->save('orders/'.$filename);
             $Merger->addPDF(public_path('orders/'.$filename), 'all');
         }
