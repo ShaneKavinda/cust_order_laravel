@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Webklex\PDFMerger\Providers\PDFMergerServiceProvider;
 
 return [
 
@@ -161,6 +162,7 @@ return [
          */
         \Barryvdh\DomPDF\ServiceProvider::class,
         \Maatwebsite\Excel\ExcelServiceProvider::class,
+        \Webklex\PDFMerger\Providers\PDFMergerServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -186,6 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'PDF' => \Barryvdh\DomPDF\Facade\Pdf::class,
         'Excel' => \Maatwebsite\Excel\Facades\Excel::class,
+        'PDFMerger' => \Webklex\PDFMerger\Facades\PDFMergerFacade::class,
     ])->toArray(),
         
 ];

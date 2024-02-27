@@ -9,6 +9,7 @@ use App\Exports\OrderExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use LynX39\LaraPdfMerger\Facades\PdfMerger;
 
 class OrderController extends Controller
 {
@@ -78,11 +79,39 @@ class OrderController extends Controller
         // load the relevant products in the order
         $order = Order::with('products') -> find($orderID);
         $pdf = PDF::loadView('orders.show', compact('order'));
-        return $pdf->download('order.pdf');
+        return $pdf->download('order_'.$orderID.'.pdf');
     }
 
     public function exportExcel($orderID){
         $order = Order::with('products') -> find($orderID);
         return Excel::download(new OrderExport($order), 'order.xlsx');
     }
+
+    public function bulkPDFGeneration(Request $request){
+        $orderids = $request->input('ids');
+        $Merger = PdfMerger::init();
+
+        $directory = public_path('orders');
+        if (!file_exists($directory)){
+            mkdir($directory, 0755, true);
+        }
+        foreach ($orderids as $orderid){
+            $filename = 'order_'.$orderid.'.pdf';
+            $order = Order::with('products')->find($orderid);
+            $pdf = PDF::loadView('orders.show', compact('order'));
+            $pdf->save('orders/'.$filename);
+            $Merger->addPDF(public_path('orders/'.$filename), 'all');
+        }
+        $Merger->merge();
+        $Merger->save('bulk_invoices.pdf', 'download');
+        // Delete the temporary orders directory
+        if (file_exists($directory)) {
+            $files = array_diff(scandir($directory), ['.', '..']);
+            foreach ($files as $file) {
+                unlink("$directory/$file");
+            }
+            rmdir($directory);
+        }
+    }
+    
 }

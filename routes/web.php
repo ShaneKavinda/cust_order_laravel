@@ -95,3 +95,5 @@ Route::get('/order/{orderId}/download-pdf', [OrderController::class, 'downloadPD
     ->name('orders.pdf.download');
 Route::get('order/{order}/export-excel', [OrderController::class, 'exportExcel'])
     ->name('orders.excel.export');
+Route::post('orders/bulk', [OrderController::class, 'bulkPDFGeneration'])
+    ->name('orders.bulk');
