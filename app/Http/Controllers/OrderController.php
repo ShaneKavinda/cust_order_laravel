@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Customer;
-use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use App\Exports\OrderExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class OrderController extends Controller
 {
@@ -73,8 +75,14 @@ class OrderController extends Controller
     }
 
     public function downloadPDF($orderID) {
+        // load the relevant products in the order
         $order = Order::with('products') -> find($orderID);
         $pdf = PDF::loadView('orders.show', compact('order'));
         return $pdf->download('order.pdf');
+    }
+
+    public function exportExcel($orderID){
+        $order = Order::with('products') -> find($orderID);
+        return Excel::download(new OrderExport($order), 'order.xlsx');
     }
 }

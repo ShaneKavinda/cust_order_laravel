@@ -6,7 +6,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Order Details</div>
-                    <a href="{{ route('orders.pdf.download', $order) }}" class="btn btn-primary">Print to PDF</a>
+                    <div class="card-body">
+                        <a href="{{ route('orders.pdf.download', $order) }}" class="btn btn-primary">Print to PDF</a>
+                        <a href="{{ route('orders.excel.export', $order) }}" class="btn btn-primary">Export to Excel</a>
+                    </div>
                     <div class="card-body">
                         <p><strong>Customer:</strong> {{ $order->customer->name }}</p>
                         <p><strong>Net Amount:</strong> {{ $order->net_amount }}</p>

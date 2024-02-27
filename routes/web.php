@@ -93,3 +93,5 @@ Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
 
 Route::get('/order/{orderId}/download-pdf', [OrderController::class, 'downloadPDF'])
     ->name('orders.pdf.download');
+Route::get('order/{order}/export-excel', [OrderController::class, 'exportExcel'])
+    ->name('orders.excel.export');
