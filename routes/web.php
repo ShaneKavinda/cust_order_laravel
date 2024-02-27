@@ -89,3 +89,7 @@ Route::put('/orders/{order}', [OrderController::class, 'update'])
     ->name('orders.update');
 Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
     ->name('orders.destroy');
+
+
+Route::get('/order/{orderId}/download-pdf', [OrderController::class, 'downloadPDF'])
+    ->name('orders.pdf.download');

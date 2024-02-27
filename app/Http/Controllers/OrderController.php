@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Customer;
-use App\Models\OrderProduct;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -70,5 +70,11 @@ class OrderController extends Controller
         $order->load('products');
 
         return view('orders.show', ['order' => $order]);
+    }
+
+    public function downloadPDF($orderID) {
+        $order = Order::with('products') -> find($orderID);
+        $pdf = PDF::loadView('orders.show', compact('order'));
+        return $pdf->download('order.pdf');
     }
 }
