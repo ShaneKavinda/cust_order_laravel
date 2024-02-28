@@ -19,7 +19,6 @@
             @csrf
             @method('PUT')
 
-            <!-- Add your form fields for editing FreeIssue properties here -->
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" class="form-control" value="{{$freeIssue->name}}" required>

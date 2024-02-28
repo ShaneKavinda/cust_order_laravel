@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-left">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
@@ -36,6 +36,15 @@
                         <h5 class="card-title">Free Issues</h5>
                         <p class="card-text">Manage free issues</p>
                         <a href="{{ route('free_issues.index') }}" class="btn btn-primary">Go to Free Issues</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Discounts</h5>
+                        <p class="card-text">Manage Discounts</p>
+                        <a href="{{ route('discounts.index') }}" class="btn btn-primary">Go to Discounts</a>
                     </div>
                 </div>
             </div>

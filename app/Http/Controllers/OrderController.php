@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use LynX39\LaraPdfMerger\Facades\PdfMerger;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Subtotal;
 
 class OrderController extends Controller
 {
@@ -42,6 +43,8 @@ class OrderController extends Controller
             'products.*.quantity' => 'required|integer|min:1',
             'products.*.free' => 'nullable|integer|min:0',
             'net_amount' => 'required|numeric|min:0',
+            'products.*.discount' => 'numeric',
+            'products.*.subtotal' => 'required|numeric|min:0'
         ]);
 
         // Create the order
@@ -58,7 +61,9 @@ class OrderController extends Controller
             $order->products()->attach($productData['product_id'], [
                 'amount' => $product->price * $productData['quantity'],
                 'free' => $productData['free'] ?? 0, 
-                'quantity' => $productData['quantity'] + $productData['free'],
+                'quantity' => $productData['quantity'],
+                'discount' => $productData['discount'],
+                'subtotal' => $productData['subtotal'],
             ]);
         }
 

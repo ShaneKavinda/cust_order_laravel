@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\FreeIssue;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FreeIssueController;
-use App\Http\Controllers\OrderController;
-use App\Models\FreeIssue;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,3 +97,20 @@ Route::get('order/{order}/export-excel', [OrderController::class, 'exportExcel']
     ->name('orders.excel.export');
 Route::post('orders/bulk', [OrderController::class, 'bulkPDFGeneration'])
     ->name('orders.bulk');
+
+Route::get('/discounts/index', [DiscountController::class, 'index'])
+    ->name('discounts.index');
+Route::get('/discounts/create', [DiscountController::class, 'create'])
+    ->name('discounts.create');
+Route::post('/discounts', [DiscountController::class, 'store'])
+    ->name('discounts.store');
+Route::get('/discounts/{discount}', [DiscountController::class, 'show'])
+    ->name('discounts.show');
+Route::get('/discounts/{discount}/edit', [DiscountController::class, 'edit'])
+    ->name('discounts.edit');
+Route::put('/discounts/{discount}', [DiscountController::class, 'update'])
+    ->name('discounts.update');
+Route::delete('/discounts/{discount}', [DiscountController::class, 'destroy'])
+    ->name('discounts.destroy');
+Route::get('/get-discount/{productId}/{quantity}', [DiscountController::class, 'discountByProduct'])
+    ->name('get-product-discount');

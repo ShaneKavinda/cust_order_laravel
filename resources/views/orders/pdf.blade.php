@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Order Details</div>
                     <div class="card-body">
@@ -18,8 +17,11 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Quantity</th>
+                                    <th>Free</th>
                                     <th>Price</th>
                                     <th>Amount</th>
+                                    <th>Discount</th>
+                                    <th>Sub Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,14 +29,16 @@
                                     <tr>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->pivot->quantity }}</td>
+                                        <td>{{ $product->pivot->free }}</td>
                                         <td>{{ $product->price }}</td>
                                         <td>{{ $product->pivot->amount }}</td>
+                                        <td>{{ $product->pivot->discount }}</td>
+                                        <td>{{ $product->pivot->subtotal }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>

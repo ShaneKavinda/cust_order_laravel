@@ -23,6 +23,8 @@
                         <th>Free</th>
                         <th>Price</th>
                         <th>Amount</th>
+                        <th>Discount</th>
+                        <th>subtotal</th>
                         <th></th>
                         <!-- Add more columns as needed -->
                     </tr>
@@ -49,6 +51,13 @@
                         <td>
                             <input type="text" name="products[0][amount]" class="product_amount" readonly>
                         </td>
+                        <td>
+                            <input type="text" name="products[0][discount]" class="product_discount" readonly>
+                        </td>
+                        <td>
+                            <input type="text" name="products[0][subtotal]" class="product_subtotal" readonly>
+                        </td>
+
                         <td>
                             <button type="button" class="delete_product_row btn btn-danger" disabled>Delete Row</button>
                         </td>
@@ -94,10 +103,10 @@
             // Function to calculate net amount
             function calculateNetAmount() {
                 var netAmount = 0;
-                var amountInputs = document.querySelectorAll('.product_amount');
+                var subtotals = document.querySelectorAll('.product_subtotal');
 
-                amountInputs.forEach(function(amountInput) {
-                    netAmount += parseFloat(amountInput.value) || 0;
+                subtotals.forEach(function(subtotal) {
+                    netAmount += parseFloat(subtotal.value) || 0;
                 });
 
                 // Update net amount input
@@ -185,18 +194,38 @@
                                     // Update amount input
                                     amountInput.value = amount.toFixed(2);
                                     console.log('Amount:', amountInput.value);
-                                    // Calculate net amount
-                                    calculateNetAmount();
+
+                                    // AJAX Request to fetch product discounts
+                                    fetch('/get-discount/'+productId+'/'+quantity)
+                                        .then(response=>response.json())
+                                        .then(discountData =>{
+                                            var discount = parseFloat(discountData.discount) || 0;
+                                            console.log('discount:', discount);
+                                            row.querySelector('.product_discount').value = discount;
+                                            // calculate subtotal
+                                            var subtotal = -row.querySelector('.product_amount').value * discount / 100 + amount;
+                                            row.querySelector('.product_subtotal').value = subtotal.toFixed(2);
+                                            console.log('subtotal:',subtotal);
+                                            // Calculate net amount
+                                            calculateNetAmount();
+                                        })
+                                    .catch(error=>{
+                                        console.error('Error parsing product discouts', error);
+                                    })
                                 })
-                    .catch(error => {
-                        console.error('Error fetching product information:', error);
-                    });
-                        })
+                    
+                            .catch(error => {
+                                console.error('Error fetching product information:', error);
+                            });
+                            
+                            })
                         .catch(error => {
                             console.error('Error:', error);
                         });
                     
                 });
+ 
+                
             };
             // Attach quantity change event listener to existing rows
             document.querySelectorAll('.product_quantity').forEach(function(quantityInput) {
